@@ -1,0 +1,54 @@
+# ARTHA Backend Dependencies
+# ===========================
+# Vectorless RAG architecture — NO LangChain, LangGraph, HuggingFace,
+# sentence-transformers, FAISS, ChromaDB, Pinecone, or any vector database.
+# Retrieval is BM25-only via rank_bm25. This is a deliberate architectural choice.
+
+# --- API Framework ---
+fastapi==0.115.6
+uvicorn[standard]==0.34.0
+gunicorn==23.0.0
+python-multipart==0.0.20
+aiofiles==24.1.0
+
+# --- Database ---
+sqlalchemy[asyncio]==2.0.36
+asyncpg==0.30.0
+alembic==1.14.1
+psycopg2-binary==2.9.10
+
+# --- Cache ---
+redis==5.2.1
+
+# --- Retrieval (BM25 — the core of Vectorless RAG) ---
+rank_bm25==0.2.2
+
+# --- PDF Parsing ---
+PyMuPDF==1.25.3
+
+# --- LLM (NVIDIA NIM via OpenAI-compatible SDK) ---
+openai==1.59.3
+
+# --- Auth ---
+python-jose[cryptography]>=3.3.0
+passlib[bcrypt]>=1.7.4
+python-multipart>=0.0.6
+aiofiles>=23.2.1
+
+# SQLite Async Driver
+aiosqlite>=0.20.0
+
+# --- Validation & Config ---
+pydantic[email]==2.10.4
+pydantic-settings==2.7.1
+
+# --- HTTP Client ---
+httpx==0.28.1
+
+# --- Testing ---
+pytest==8.3.4
+pytest-asyncio==0.25.0
+httpx==0.28.1
+
+# --- Utilities ---
+python-dotenv==1.0.1
