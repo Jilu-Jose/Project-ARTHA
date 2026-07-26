@@ -1,4 +1,4 @@
-import { ReactNode, useState } from 'react';
+import { useState, type ReactNode } from 'react';
 import { 
   Bell, 
   Settings, 
@@ -14,7 +14,8 @@ import {
   User,
   Moon,
   Sun,
-  ChevronLeft
+  ChevronLeft,
+  Home
 } from 'lucide-react';
 import { useNavigate, useLocation, Link } from 'react-router-dom';
 import { useChatStore } from '../../store/chatStore';
@@ -90,6 +91,13 @@ export default function Layout({ children }: LayoutProps) {
             </div>
 
             <nav className="flex flex-col mt-4 gap-1 px-4">
+              <SidebarLink 
+                icon={<Home className="w-4 h-4" />} 
+                label="Home" 
+                active={location.pathname === '/'}
+                onClick={() => navigate('/')}
+                isExpanded={isSidebarOpen}
+              />
               <SidebarLink 
                 icon={<LayoutDashboard className="w-4 h-4" />} 
                 label="Dashboard" 
@@ -225,7 +233,7 @@ function SidebarLink({ icon, label, active, onClick, isExpanded }: { icon: React
         "flex items-center gap-3 px-3 py-2.5 text-sm font-medium transition-all rounded-lg",
         active 
           ? "bg-red-50 text-brand-red" 
-          : "text-sidebar-foreground hover:bg-gray-100 hover:text-foreground"
+          : "text-sidebar-foreground hover:bg-secondary hover:text-foreground"
       )}
       title={!isExpanded ? label : undefined}
     >

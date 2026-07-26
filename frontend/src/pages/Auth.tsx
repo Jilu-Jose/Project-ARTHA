@@ -26,7 +26,7 @@ export default function Auth() {
       const token = res.data.access_token;
       
       // Temporarily set auth so the interceptor uses the token for the next request
-      setAuth({ id: '', email: '', plan: '' }, token);
+      setAuth({ id: '', email: '', plan: '', status: 'unverified' }, token);
       
       // Fetch user profile
       const meRes = await arthaApi.get('/auth/me');
