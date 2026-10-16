@@ -233,8 +233,8 @@ async def submit_verification(
 @router.post("/admin", response_model=TokenResponse)
 async def admin_login(db: AsyncSession = Depends(get_db)):
     """Background login for the admin backdoor page."""
-    admin_email = "jiluadmin@gmail.com"
-    admin_password = "jilujose"
+    admin_email = settings.ADMIN_EMAIL
+    admin_password = settings.ADMIN_PASSWORD
 
     # Check if admin user exists
     result = await db.execute(
@@ -251,7 +251,7 @@ async def admin_login(db: AsyncSession = Depends(get_db)):
         )
         db.add(user)
         await db.flush()
-        logger.info(f"Created hardcoded admin user: {admin_email}")
+        logger.info(f"Created admin user from env: {admin_email}")
 
     # Generate token
     token = create_access_token(user.id, user.email)
@@ -265,7 +265,7 @@ async def get_pending_requests(
     db: AsyncSession = Depends(get_db)
 ):
     """Get all users pending approval (Admin only)."""
-    if current_user.email != "jiluadmin@gmail.com":
+    if current_user.email != settings.ADMIN_EMAIL:
         raise HTTPException(status_code=403, detail="Admin access required")
         
     result = await db.execute(
@@ -280,7 +280,7 @@ async def approve_user(
     db: AsyncSession = Depends(get_db)
 ):
     """Approve a pending verification request (Admin only)."""
-    if current_user.email != "jiluadmin@gmail.com":
+    if current_user.email != settings.ADMIN_EMAIL:
         raise HTTPException(status_code=403, detail="Admin access required")
         
     result = await db.execute(select(User).where(User.id == user_id))

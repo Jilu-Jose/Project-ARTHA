@@ -67,6 +67,10 @@ class Settings(BaseSettings):
     JWT_ALGORITHM: str = Field(default="HS256", description="JWT algorithm")
     ACCESS_TOKEN_EXPIRE_MINUTES: int = Field(default=1440, description="JWT expiry (24h default)")
 
+    # --- Admin ---
+    ADMIN_EMAIL: str = Field(default="admin@artha.local", description="Admin account email")
+    ADMIN_PASSWORD: str = Field(default="change-me-in-production", description="Admin account password")
+
     # --- Application ---
     ENVIRONMENT: str = Field(default="development", description="development | staging | production")
     CORS_ORIGINS: str = Field(
